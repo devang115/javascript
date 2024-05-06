@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather Forecast</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      .container {
+        max-width: 800px;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .city {
+        margin-bottom: 20px;
+        padding: 20px;
+        border-radius: 8px;
+        background-color: #f0f0f0;
+      }
+
+      .city h2 {
+        margin-top: 0;
+        font-size: 24px;
+        color: #333;
+      }
+
+      .city-info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 10px;
+      }
+
+      .weather-icon {
+        width: 50px;
+        height: 50px;
+      }
+
+      .weather-info {
+        flex: 1;
+        margin-left: 20px;
+      }
+
+      .weather-info p {
+        margin: 5px 0;
+        font-size: 16px;
+        color: #555;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1 style="text-align: center">Weather Forecast</h1>
+      <div id="weather-container"></div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const weatherContainer = document.getElementById("weather-container");
+
+        // List of cities
+        const cities = ["Ahmedabad", "London", "New York", "Tokyo", "Sydney"];
+
+        // OpenWeatherMap API key
+        const apiKey = "055cc7185ceb37111846bd11b66f1b80"; // Replace with your OpenWeatherMap API key
+
+        // Fetch weather data for each city
+        cities.forEach((city) => {
+          fetch(
+            `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`
+          )
+            .then((response) => response.json())
+            .then((data) => {
+              renderWeather(data);
+            })
+            .catch((error) => {
+              console.error("Error fetching weather data:", error);
+            });
+        });
+
+        // Render weather information
+        function renderWeather(data) {
+          const cityElement = document.createElement("div");
+          cityElement.classList.add("city");
+          cityElement.innerHTML = `
+                <h2>${data.name}</h2>
+                <div class="city-info">
+                    <img class="weather-icon" src="http://openweathermap.org/img/wn/${data.weather[0].icon}.png" alt="${data.weather[0].description}">
+                    <div class="weather-info">
+                        <p>Temperature: ${data.main.temp} °C</p>
+                        <p>Condition: ${data.weather[0].description}</p>
+                        <p>Humidity: ${data.main.humidity}%</p>
+                    </div>
+                </div>
+            `;
+          weatherContainer.appendChild(cityElement);
+        }
+      });
+    </script>
+  </body>
+</html>

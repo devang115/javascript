@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>COVID-19 Statistics</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+      .stats-container {
+        margin-top: 20px;
+        text-align: center;
+      }
+      table {
+        margin: 0 auto;
+        border-collapse: collapse;
+        width: 80%;
+      }
+      th,
+      td {
+        padding: 10px;
+        border: 1px solid #ddd;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+      button {
+        margin-top: 20px;
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #45a049;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>COVID-19 Statistics</h1>
+    <div class="stats-container" id="stats-container"></div>
+    <button id="refresh-button">Refresh Statistics</button>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const statsContainer = document.getElementById("stats-container");
+        const refreshButton = document.getElementById("refresh-button");
+
+        function fetchCovidStats() {
+          fetch("https://disease.sh/v3/covid-19/all")
+            .then((response) => response.json())
+            .then((data) => {
+              statsContainer.innerHTML = `
+                            <table>
+                                <tr>
+                                    <th>Category</th>
+                                    <th>Total</th>
+                                </tr>
+                                <tr>
+                                    <td>Total cases</td>
+                                    <td>${data.cases}</td>
+                                </tr>
+                                <tr>
+                                    <td>Total deaths</td>
+                                    <td>${data.deaths}</td>
+                                </tr>
+                                <tr>
+                                    <td>Total recovered</td>
+                                    <td>${data.recovered}</td>
+                                </tr>
+                            </table>
+                        `;
+            })
+            .catch((error) => {
+              console.error("Error fetching COVID-19 statistics:", error);
+            });
+        }
+
+        // Fetch COVID-19 statistics when page loads
+        fetchCovidStats();
+
+        // Add event listener to the refresh button
+        refreshButton.addEventListener("click", fetchCovidStats);
+      });
+    </script>
+  </body>
+</html>
