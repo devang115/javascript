@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+        font-family: Arial, sans-serif;
+      }
+      #calculator {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-gap: 10px;
+        max-width: 300px;
+        margin: auto;
+      }
+      button {
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        cursor: pointer;
+      }
+      #result {
+        grid-column: span 4;
+        text-align: right;
+        padding: 10px;
+        font-size: 20px;
+        border: 1px solid #ccc;
+      }
+    </style>
+    <title>Simple Calculator</title>
+  </head>
+  <body>
+    <div id="calculator">
+      <div id="result">0</div>
+      <!-- Clear the result when the 'C' button is clicked -->
+      <button onclick="clearResult()">C</button>
+      <!-- Append '1' to the result when the '1' button is clicked -->
+      <button onclick="appendToResult('1')">1</button>
+      <!-- Append '2' to the result when the '2' button is clicked -->
+      <button onclick="appendToResult('2')">2</button>
+      <!-- Append '+' to the result when the '+' button is clicked -->
+      <button onclick="appendToResult('+')">+</button>
+      <!-- Append '3' to the result when the '3' button is clicked -->
+      <button onclick="appendToResult('3')">3</button>
+      <!-- Append '4' to the result when the '4' button is clicked -->
+      <button onclick="appendToResult('4')">4</button>
+      <!-- Append '5' to the result when the '5' button is clicked -->
+      <button onclick="appendToResult('5')">5</button>
+      <!-- Append '-' to the result when the '-' button is clicked -->
+      <button onclick="appendToResult('-">-</button>
+      <!-- Append '6' to the result when the '6' button is clicked -->
+      <button onclick="appendToResult('6')">6</button>
+      <!-- Append '7' to the result when the '7' button is clicked -->
+      <button onclick="appendToResult('7')">7</button>
+      <!-- Append '8' to the result when the '8' button is clicked -->
+      <button onclick="appendToResult('8')">8</button>
+      <!-- Append '*' to the result when the '*' button is clicked -->
+      <button onclick="appendToResult('*')">*</button>
+      <!-- Append '9' to the result when the '9' button is clicked -->
+      <button onclick="appendToResult('9')">9</button>
+      <!-- Append '0' to the result when the '0' button is clicked -->
+      <button onclick="appendToResult('0')">0</button>
+      <!-- Calculate the result when the '=' button is clicked -->
+      <button onclick="calculateResult()">=</button>
+      <!-- Append '/' to the result when the '/' button is clicked -->
+      <button onclick="appendToResult('/')">/</button>
+    </div>
+
+    <script>
+      // Get the result element
+      let resultElement = document.getElementById("result");
+      // Initialize the result to "0"
+      let result = "0";
+
+      // Function to update the displayed result
+      function updateResult() {
+        resultElement.textContent = result;
+      }
+
+      // Function to append a value to the result
+      function appendToResult(value) {
+        // If the result is "0" and the value is not "C", reset the result to an empty string
+        if (result === "0" && value !== "C") {
+          result = "";
+        }
+
+        // If the value is "C", reset the result to "0"; otherwise append the value to the result
+        if (value === "C") {
+          result = "0";
+        } else {
+          result += value;
+        }
+
+        // Update the displayed result
+        updateResult();
+      }
+
+      // Function to calculate the result
+      function calculateResult() {
+        try {
+          // Use eval to calculate the result and convert it to a string
+          result = eval(result).toString();
+          updateResult();
+        } catch (error) {
+          // If an error occurs during evaluation, set the result to "Error" and update the displayed result
+          result = "Error";
+          updateResult();
+        }
+      }
+
+      // Function to clear the result
+      function clearResult() {
+        // Reset the result to "0" and update the displayed result
+        result = "0";
+        updateResult();
+      }
+    </script>
+  </body>
+</html>

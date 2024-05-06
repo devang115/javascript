@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Right Pyramid</title>
+  </head>
+  <body>
+    <script>
+      function printPyramid(n) {
+        for (let i = 0; i < n; i++) {
+          let str = "";
+          for (let j = 0; j < n - i - 1; j++) {
+            str += "    ";
+          }
+          for (let k = 0; k <= i; k++) {
+            str += "*   ";
+          }
+          console.log(str);
+        }
+      }
+
+      printPyramid(5);
+    </script>
+  </body>
+</html>
